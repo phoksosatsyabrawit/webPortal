@@ -55,11 +55,11 @@ body::before{
         <button type="submit" id="close" onclick="btnclose()" class="btn btn-warning">Close</button>
     </div> -->
     <div class="container mt-5" id="contain">
-        <h2 class="text-center text-secondary-emphasis fs-1 fw-bold mb-4"><strong>CRUD Employee System</strong></h2>
+        <h2 class="text-center text-secondary-emphasis fs-1 fw-bold mb-4"><strong>Employee System</strong></h2>
         <form id="empform" class="empform mb-4">
             <div class="form-row row align-items-center">
                 <div class="form-group col-md-4">
-                    <label for="name" class="fs-5 fw-medium mb-1">Employee Name</label>
+                    <label for="name" class="fs-5 fw-medium mb-1">Employee</label>
                     <input type="text" class="form-control" required placeholder="Enter name..." id="empname">
                 </div>
                 <div class="form-group col-md-4">
@@ -80,15 +80,14 @@ body::before{
             <table class="table table-bordered table-primary-emphasis text-center" id="payloadheader">
                 <thead>
                     <tr>
-                        <th>#ID</th>
-                        <th>Employee Name</th>
+                        <th>ID</th>
+                        <th>Employee</th>
                         <th>Position</th>
-                        <th>Hire Date</th>
-                        <th>Status</th>
+                        <th>HireDate</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
-                <tbody  id="payload"><!-- add data dynamic -->
-                </tbody>
+                <tbody  id="payload"></tbody> <!-- add data dynamic -->
             </table>
         </div>
     </div>
@@ -105,92 +104,69 @@ body::before{
         //     document.getElementById("show").style.display="block";
         //     document.getElementById("close").style.display="none";
         // }
-        // //formatstring  
-        // function format(num){
-        //     return String(num).padStart(3,'0');
-        // }
-        //add value to table
-        function addemp(){
-            // alert("Hello world!");
-            const empName = document.getElementById("empname").value;
-            const empPost = document.getElementById("emppost").value;
-            const hireDate = document.getElementById("hiredate").value;
-            const payLoad= document.getElementById("payload");
-            
-            if (!empName || !empPost || !hireDate) {
-                alert("Please fill all fields!");
-                return;
-            }
-            
-            var rowcount = payLoad.rows.length;
-            var addrow = payLoad.insertRow();
-            var values = [format(rowcount + 1), empName, empPost, hireDate];
-            
-            values.forEach((val, i) => addrow.insertCell(i).innerHTML = val);
-            
-            // Add action buttons
-            addrow.insertCell().innerHTML = `
-                <button class="btn btn-success btn-sm edit" onclick="editRow(this)">Edit</button>
-                <button class="btn btn-warning btn-sm delete" onclick="deleteRow(this)">Delete</button>
-            `;
-            
-            // Clear input fields
-            ["empname", "emppost", "hiredate"].forEach(id => document.getElementById(id).value = "");
 
-            // var rowcount = payLoad.rows.length;
-            // var addrow = payLoad.insertRow();
-            // var cell1 = addrow.insertCell();
-            // var cell2 = addrow.insertCell();
-            // var cell3 = addrow.insertCell();
-            // var cell4 = addrow.insertCell();
-            // var cell5 = addrow.insertCell();
-            // if(payLoad.rows.length){
-            //     cell1.innerHTML=`
-            //         <td>${format(rowcount+1)}</td>
-            //     `;
-            //         cell2.innerHTML=`
-            //         <td>${empName}</td>
-            //     `;
-            //         cell3.innerHTML=`
-            //         <td>${empPost}</td>
-            //     `;
-            //         cell4.innerHTML=`
-            //         <td>${hireDate}</td>
-            //     `;
-            //         cell5.innerHTML=`
-            //         <td>
-            //         <button class="btn btn-success btn-sm edit" onclick="editRow(this)">Edit</button>
-            //         <button class="btn btn-warning btn-sm delete" onclick="deleteRow(this)">Delete</button>
-            //         </td>
-            //     `;
-            //     //clear after added
-            //     document.getElementById("empname").value = "";
-            //     document.getElementById("emppost").value = "";
-            //     document.getElementById("hiredate").value = "";
-            // };
+        
+        let empID = 1;
+        //formatstring  
+        function format(num){
+            return String(num).padStart(3,'0');
+        }
+        // Clear Input
+        function clearInput() {
+            document.getElementById("empname").value = "";
+            document.getElementById("emppost").value = "";
+            document.getElementById("hiredate").value = "";
         }
         //Function to update row numbers after deletion
         function updateRowNumbers() {
             var rows = document.querySelectorAll("#payload tr");
             rows.forEach((row, index) => {
-                row.cells[0].innerText = format(index + 1); // Update row number
+                row.cells[0].innerText = index + 1; // Update row number
             });
         }
+        //add employee into table
+        function addemp(){
+            const empName = document.getElementById("empname").value;
+            const empPost = document.getElementById("emppost").value;
+            const hireDate = document.getElementById("hiredate").value;
+            
+            if (!empName || !empPost || !hireDate) {
+                alert("Please fill all fields!");
+                return;
+            }
+
+            const table = document.getElementById("payload");
+            const newRow = table.insertRow();
+            
+            // Add action buttons
+            newRow.innerHTML = `
+                <td>${empID}</td>
+                <td>${empName}</td>
+                <td>${empPost}</td>
+                <td>${hireDate}</td>
+                <td>
+                    <button class="btn btn-primary mb-3" onclick="editEmployee(this)">Edit</button>
+                    <button class="btn btn-primary mb-3" onclick="deleteEmployee(this)">Delete</button>
+                </td>
+            `;
+            empID++;
+            clearInput();
+        }
         //Function to delete a row
-        function deleteRow(button) {
+        function deleteEmployee(button) {
             var row = button.parentNode.parentNode; // Get the row of the clicked button
             row.parentNode.removeChild(row); // Remove the row from the table
             updateRowNumbers();
         }
         //Function to edit a row
-        function editRow(button) {
+        function editEmployee(button) {
             var row = button.closest("tr"); // Get the row of the clicked button
             var cells = row.getElementsByTagName("td");
 
             // Get existing values
-            var empName = cells[1].innerText;
-            var empPost = cells[2].innerText;
-            var hireDate = cells[3].innerText;
+            var empName = cells[0].innerText;
+            var empPost = cells[1].innerText;
+            var hireDate = cells[2].innerText;
 
             // Populate input fields with existing values
             document.getElementById("empname").value = empName;
