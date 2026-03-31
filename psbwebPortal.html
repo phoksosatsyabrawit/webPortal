@@ -6,7 +6,7 @@
     <title>PSB WEB PORTAL</title>
 </head>
 <body>
-    <style>
+<style>
     body::before {
         content: "";
         position: fixed;
@@ -33,12 +33,13 @@
         text-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
         color: #072a4e;
     }
-    .parentButton {
+    .systemButton {
         display: grid;
-        grid-template-columns: repeat(1, auto);
-        gap: 10px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        max-width: 1200px;
     }
-    .systemButton button {
+    .coresystemButton {
         cursor: pointer;
         padding: 12px 24px;
         min-width: 450px;
@@ -49,7 +50,41 @@
         border: none;
         box-shadow: 0 3px 6px rgb(0, 0, 0, 0.5);
     }
-    .systemButton button:hover {
+    .coresystemButton:hover {
+        opacity: 0.8;
+        background-color: white;
+        color: black;
+        box-shadow: 0 3px 6px rgb(0, 0, 0, 0.5);
+    }
+    .mortgagesystemButton {
+        cursor: pointer;
+        padding: 12px 24px;
+        min-width: 450px;
+        font-size: large;
+        font-family: Arial;
+        background-color: #0a3f87;
+        color: white;
+        border: none;
+        box-shadow: 0 3px 6px rgb(0, 0, 0, 0.5);
+    }
+    .mortgagesystemButton:hover {
+        opacity: 0.8;
+        background-color: white;
+        color: black;
+        box-shadow: 0 3px 6px rgb(0, 0, 0, 0.5);
+    }
+    .employeesystemButton {
+        cursor: pointer;
+        padding: 12px 24px;
+        min-width: 450px;
+        font-size: large;
+        font-family: Arial;
+        background-color: #0a3f87;
+        color: white;
+        border: none;
+        box-shadow: 0 3px 6px rgb(0, 0, 0, 0.5);
+    }
+    .employeesystemButton:hover {
         opacity: 0.8;
         background-color: white;
         color: black;
@@ -76,19 +111,14 @@
         <div class="title">
             <center><h1>PSB Web Portal</h1></center>
         </div>
-        <div class="parentButton">
             <div class="systemButton">
                 <button class="coresystemButton" onclick="redirectcoreSystem()">Core System</button>
-                <button class="mortgagesystemButton" onclick="redirectmortSystem()">Mortgage System</button>
+                <button class="mortgagesystemButton" onclick="redirectmortgageSystem()">Mortgage System</button>
                 <button class="employeesystemButton" onclick="redirectemployeeSystem()">Employee System</button>
-            </div>
-            <div class="customButton">
                 <button class="addnewButton">Add new Link</button>
             </div>
-        </div>
     </div>
-    <div></div>
-    <script>
+<script>
         function redirectcoreSystem () {
             window.open("coreSystem.html", "_blank"); /* one click open in new tab */
         }
@@ -96,8 +126,8 @@
             window.open("mortgageSystem.html", "_blank"); /* one click open in new tab */
         }
         function redirectemployeeSystem () {
-            window.open("employeeSystem.html", "_blank");
+            window.open("employeeSystem.html", "_blank"); /* one click open in new tab */
         }
-    </script>
+</script>
 </body>
 </html>
