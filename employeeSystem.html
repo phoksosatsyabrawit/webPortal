@@ -12,16 +12,22 @@
     padding: 0;
     box-sizing: border-box;
 }
-body{
-    background-image: url("/image/banking.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+body::before{
+    content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("../image/banking.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        opacity: 0.7;
+        z-index: -1;
 }
 .container{
     /* display: none; */
-    background-color: rgb(255, 255, 255);
+    background-color: transparentq;
     border-radius: 8px;
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
     padding: 15px;
@@ -68,6 +74,7 @@ body{
         </form>
         <div>
             <button class="btn btn-primary mb-3" id="addemp" onclick="addemp()">Add Employee</button>
+            <button class="btn btn-primary mb-3" id="cancelButton" onclick="cancelButton()" style="float: right;">Cancel</button>
         </div>
         <div class="">
             <table class="table table-bordered table-primary-emphasis text-center" id="payloadheader">
@@ -192,6 +199,9 @@ body{
 
             // Delete the row being edited
             deleteRow(button);
+        }
+        function cancelButton () {
+            window.location.href = ("psbwebPortal.html");
         }
     </script>
 </body>
