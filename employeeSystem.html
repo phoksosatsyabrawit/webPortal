@@ -48,12 +48,6 @@ body::before{
 }
 </style>
 <body>
-    <!-- <div class="showform" id="show">
-        <button type="submit" id="show" onclick="btnshow()" class="btn btn-primary">Show</button>
-    </div>
-    <div class="closeform" id="close" style="display: none;">
-        <button type="submit" id="close" onclick="btnclose()" class="btn btn-warning">Close</button>
-    </div> -->
     <div class="container mt-5" id="contain">
         <h2 class="text-center text-secondary-emphasis fs-1 fw-bold mb-4"><strong>Employee System</strong></h2>
         <form id="empform" class="empform mb-4">
@@ -92,25 +86,7 @@ body::before{
         </div>
     </div>
     <script>
-        //showForm
-        // function btnshow(){
-        //    document.getElementById("contain").style.display="block";
-        //    document.getElementById("close").style.display="block";
-        //    document.getElementById("show").style.display="none";
-        // }
-        // // //hideForm
-        // function btnclose(){
-        //     document.getElementById("contain").style.display="none";
-        //     document.getElementById("show").style.display="block";
-        //     document.getElementById("close").style.display="none";
-        // }
-
-        
         let empID = 1;
-        //formatstring  
-        function format(num){
-            return String(num).padStart(3,'0');
-        }
         // Clear Input
         function clearInput() {
             document.getElementById("empname").value = "";
@@ -145,12 +121,13 @@ body::before{
                 <td>${empPost}</td>
                 <td>${hireDate}</td>
                 <td>
-                    <button class="btn btn-primary mb-3" onclick="editEmployee(this)">Edit</button>
-                    <button class="btn btn-primary mb-3" onclick="deleteEmployee(this)">Delete</button>
+                    <button class="btn btn-success mb-3" onclick="editEmployee(this)">Edit</button>
+                    <button class="btn btn-danger mb-3" onclick="deleteEmployee(this)">Delete</button>
                 </td>
             `;
             empID++;
             clearInput();
+            updateRowNumbers();
         }
         //Function to delete a row
         function deleteEmployee(button) {
@@ -164,9 +141,9 @@ body::before{
             var cells = row.getElementsByTagName("td");
 
             // Get existing values
-            var empName = cells[0].innerText;
-            var empPost = cells[1].innerText;
-            var hireDate = cells[2].innerText;
+            var empName = cells[1].innerText;
+            var empPost = cells[2].innerText;
+            var hireDate = cells[3].innerText;
 
             // Populate input fields with existing values
             document.getElementById("empname").value = empName;
@@ -174,7 +151,8 @@ body::before{
             document.getElementById("hiredate").value = hireDate;
 
             // Delete the row being edited
-            deleteRow(button);
+            deleteEmployee(button);
+            updateRowNumbers();
         }
         function cancelButton () {
             window.location.href = ("psbwebPortal.html");

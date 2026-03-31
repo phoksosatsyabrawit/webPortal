@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Core System</title>
+    <title>Login Form</title>
 </head>
 <style>
     body::before {
@@ -28,7 +28,8 @@
     }
     form {
         width: 35%;
-        border: 1px solid whitesmoke;
+        border: none;
+        border-radius: 6px;
         background-color: transparent;
         box-shadow: 0 6px 9px rgb(0, 0, 0, 0.5);
         padding: 12px 20px;
@@ -111,7 +112,7 @@
         const validUname = document.getElementById("userName").value;
         const validUpass = document.getElementById("userPass").value;
         if (validUname === userName && validUpass === userPass) {
-            window.open("http://127.0.0.1:5050/mortgageSystem.html");
+            window.location.href = ("http://127.0.0.1:5050/employeeSystem.html");
         } else {
             alert("Username and Password Incorrect ...");
         }
